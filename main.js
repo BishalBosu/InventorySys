@@ -1,4 +1,4 @@
-const url = "http://localhost:3003/"
+const url = "http://localhost:3008/"
 
 window.addEventListener("DOMContentLoaded", async () => {
 	const allInfo = await axios.get(url + "data")
@@ -11,10 +11,10 @@ window.addEventListener("DOMContentLoaded", async () => {
 })
 
 function pushData() {
-	const name = document.getElementById("name")
-	const desc = document.getElementById("desc")
-	const price = document.getElementById("price")
-	const qty = document.getElementById("qty")
+	const name = document.getElementById("name").value;
+	const desc = document.getElementById("desc").value;
+	const price = document.getElementById("price").value;
+	const qty = document.getElementById("qty").value;
 
 	obj = {
 		name,
@@ -37,33 +37,38 @@ async function dataProcess(obj) {
 }
 
 function showData(data) {
-	if (document.getElementById(data.id)) {
+	if (data.qty < 1) {
+		//do nothing
+		console.log(document.getElementById(`${data.id}-q`).value)
+	}
+
+	else if (document.getElementById(`${data.id}-q`)) {
 		document.getElementById(`${data.id}-q`).innerHTML = data.qty
 	} else {
 		//adding info about product
 		document.getElementById(
 			"item-name"
-		).innerHTML += `<div id = "${data.id}-n" class="mb-3">${data.name}</div>`
+		).innerHTML += `<div id = "${data.id}-n" class="mb-3">${data.name}</div><br>`
 		document.getElementById(
 			"item-desc"
-		).innerHTML += `<div id = "${data.id}-d class="mb-3">${data.desc}</div>`
+		).innerHTML += `<div id = "${data.id}-d class="mb-3">${data.desc}</div><br><h1></h1><p></p>`
 		document.getElementById(
 			"item-price"
-		).innerHTML += `<div id = "${data.id}-p" class="mb-3">${data.price}</div>`
+		).innerHTML += `<div id = "${data.id}-p" class="mb-3">${data.price}</div><br>`
 		document.getElementById(
 			"item-qty"
-		).innerHTML += `<div id = "${data.id}-q" class="mb-3">${data.qty}</div>`
+		).innerHTML += `<div id = "${data.id}-q" class="mb-3">${data.qty}</div><br>`
 
 		//adding buttons
 		document.getElementById(
 			"item-buy1"
-		).innerHTML += `<button type="button" onclick="buy1('${element.id}')" class="btn btn-primary"> Buy 1</button>`
+		).innerHTML += `<div><button type="button" onclick="buy1('${data.id}')" class="btn btn-primary"> Buy 1</button></div><br>`
 		document.getElementById(
 			"item-buy2"
-		).innerHTML += `<button type="button" onclick="buy2('${element.id}')" class="btn btn-primary"> Buy 2</button>`
+		).innerHTML += `<div><button type="button" onclick="buy2('${data.id}')" class="btn btn-primary"> Buy 2</button></div><br>`
 		document.getElementById(
 			"item-buy3"
-		).innerHTML += `<button type="button" onclick="buy3('${element.id}')" class="btn btn-primary"> Buy 3</button>`
+		).innerHTML += `<div><button type="button" onclick="buy3('${data.id}')" class="btn btn-primary"> Buy 3</button></div><br>`
 	}
 }
 

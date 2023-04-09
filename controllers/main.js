@@ -8,6 +8,13 @@ exports.getData = (req, res, next) => {
 		.catch((err) => console.log(err))
 }
 
+exports.getSingleData = (req, res, next) => {
+	const prodId = req.params.productId
+	Saman.findByPk(prodId)
+		.then(product=>res.json(product))
+		.catch((err) => console.log(err))
+}
+
 exports.postData = (req, res, next) => {
 	const name = req.body.name
 	const desc = req.body.desc
@@ -31,9 +38,10 @@ exports.patchData = (req, res, next) => {
 	const newQuntity = req.body.qty
 
 	Saman.findByPk(prodId)
-		.then(product =>{
-			return product.update({qty: newQuntity})
+		.then((product) => {
+			return product.update({ qty: newQuntity })
 		})
-		.then(product => res.json(product))
+		.then((product) => res.json(product))
 		.catch((err) => console.log(err))
 }
+

@@ -21,7 +21,7 @@ app.use(mainRoutes)
 sequelize
 	.sync()
 	.then((result) => {
-		app.listen(3003)
+		app.listen(3008)
 	})
 	.catch((err) => console.log(err))
 
